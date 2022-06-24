@@ -11,3 +11,8 @@ go:
 
 test:
 	npm run test
+
+push:
+	git add .
+	git commit 
+	git push

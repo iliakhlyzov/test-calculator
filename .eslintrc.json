@@ -10,5 +10,12 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint"],
-  "rules": {}
+  "rules": {
+    "import/no-unresolved": 0,
+    "import/prefer-default-export": 0,
+    "no-unused-vars": 1,
+    "class-methods-use-this": 1,
+    "no-console": 0,
+    "import/extensions": 0
+  }
 }
