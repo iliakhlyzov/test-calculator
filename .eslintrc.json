@@ -16,6 +16,10 @@
     "no-unused-vars": 1,
     "class-methods-use-this": 1,
     "no-console": 0,
-    "import/extensions": 0
+    "import/extensions": 0,
+    "no-plusplus": 0,
+    "no-shadow": 0,
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/explicit-function-return-type": 2
   }
 }

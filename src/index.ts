@@ -13,9 +13,8 @@ const startCalculator = (
     if (str === 'exit') {
       process.exit();
     }
-    const expression = parser.validate(str);
-    const result = (expression && core.calculate(expression)) || ERROR_MESSAGE;
-    console.log(result);
+    console.log(parser.isValid(str));
+    // const result = (parser.isValid() core.calculate(expression)) || ERROR_MESSAGE;
   });
 };
 
