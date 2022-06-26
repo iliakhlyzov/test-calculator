@@ -1,13 +1,17 @@
-import { Brackets } from '../constants';
+import {
+  Brackets,
+  Operations,
+  POINT,
+  REG_EXPS,
+  STRONG_SYMBOLS,
+} from '../constants';
 import { IExpressionParser } from '../types/helpers.interface';
 
 export class Parser implements IExpressionParser {
   private validate = (str: string): string => str;
 
-  private expressionRegExp = /^[0-9+-/*().]*$/;
-
   hasWrongSymbols(str: string): boolean {
-    return !this.expressionRegExp.exec(str);
+    return !REG_EXPS.EXPRESSION.exec(str);
   }
 
   hasIncorrectCountOfBrackets(str: string): boolean {
@@ -28,12 +32,34 @@ export class Parser implements IExpressionParser {
     return true;
   }
 
-  // hasCorrectOrderOfOperationsAndBrackets(str: string): boolean {
-  //   for (let i = 0; i <= str.length; i++) {
+  hasWrongPoints(str: string): boolean {
+    return !!REG_EXPS.WRONG_POINT.exec(str);
+  }
 
-  //   }
-  //   return true;
-  // }
+  hasWrongOperationSignPlaces(str: string): boolean {
+    return !!/asdf/.exec(str);
+  }
+
+  hasWrongBeginingOrEnd(str: string): boolean {
+    return (
+      STRONG_SYMBOLS.filter((x) => x === str[0] || x === str[str.length - 1])
+        .length !== 0
+    );
+  }
+
+  hasWrongUseOfMinusSign(str: string): boolean {
+    // TODO
+    return true;
+  }
+
+  hasWrongUseOfStrongOperations(str: string): boolean {
+    return !REG_EXPS.WRONG_STRONG_OPERATIONS.exec(str);
+  }
+
+  hasWrongUseOfBrackets(str: string): boolean {
+    // TODO
+    return true;
+  }
 
   isValid = (str: string): boolean => {
     if (str.length === 0) {
@@ -45,6 +71,13 @@ export class Parser implements IExpressionParser {
     if (this.hasIncorrectCountOfBrackets(str)) {
       return false;
     }
+    if (this.hasWrongPoints(str)) {
+      return false;
+    }
+    if (this.hasWrongBeginingOrEnd(str)) {
+      return false;
+    }
+
     return !!this.validate(str);
   };
 }
