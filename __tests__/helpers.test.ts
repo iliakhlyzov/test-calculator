@@ -102,5 +102,14 @@ describe('Helpers Tests', () => {
     it('should be 0 - hard works with brackets and negative numbers', () => {
       expect(core.calculate('(18/2)*(16+32/(2*-1))')).toBe(4);
     });
+
+    it('assotiative: should be equal: add, mul', () => {
+      expect(core.calculate('1+4')).toBe(core.calculate('4+1'));
+      expect(core.calculate('1*4')).toBe(core.calculate('4*1'));
+    });
+    it('non assotiative: should be not equal, div, ', () => {
+      expect(core.calculate('6/3')).not.toBe(core.calculate('3/6'));
+      expect(core.calculate('8-2')).toBe(core.calculate('2-8'));
+    });
   });
 });

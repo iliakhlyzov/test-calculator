@@ -14,6 +14,9 @@ const startCalculator = (
       process.exit();
     }
     const isValid = await parser.isValid(str);
+    console.log('Expression is Valid: ' + isValid);
+    console.log(parser.getNumbers());
+    console.log(parser.getOperationsAndBrackets());
   });
 };
 

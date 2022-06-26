@@ -23,11 +23,17 @@ export enum Brackets {
 
 export const POINT = '.';
 export enum Operations {
-  ADD = '+',
-  SUB = '-',
-  MUL = '*',
-  DIV = '/',
+  add = '+',
+  sub = '-',
+  mul = '*',
+  div = '/',
 }
+
+export enum ExtraOperations {
+  ne = '!',
+}
+
+export const ALL_OPERATIONS = Operations && ExtraOperations;
 
 export const SPACE = ' ';
 

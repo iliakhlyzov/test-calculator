@@ -5,9 +5,12 @@ const isNumber = (character: string): boolean =>
 
 const isOpenBracket = (character: string): boolean =>
   character === Brackets.OPEN;
+
 const isPoint = (character: string): boolean => character === POINT;
+
 const isOperation = (character: string): boolean =>
   Object.values(Operations).includes(character as Operations);
+
 const isNegationSign = (character: string): boolean =>
   character === NEGATION_SIGN;
 
