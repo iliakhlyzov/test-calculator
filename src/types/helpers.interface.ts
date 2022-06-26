@@ -1,5 +1,5 @@
 export interface IExpressionParser {
-  isValid: (str: string) => boolean;
+  isValid: (str: string) => Promise<unknown>;
 }
 
 export interface ICalculatorCore {

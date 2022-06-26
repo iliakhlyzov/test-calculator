@@ -20,6 +20,8 @@
     "no-plusplus": 0,
     "no-shadow": 0,
     "@typescript-eslint/no-shadow": ["error"],
-    "@typescript-eslint/explicit-function-return-type": 2
+    "@typescript-eslint/explicit-function-return-type": 2,
+    "max-len": 0,
+    "no-continue": 1
   }
 }

@@ -23,8 +23,9 @@
  **start project:**
 
  > npm i
-  make go
+
+ > make go
 
  **execute test:**
 
- > make test
+ > npm run test

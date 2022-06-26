@@ -1,6 +1,20 @@
 export enum States {
   BEGINING,
+  NEGATION,
+  NUMBER,
+  OPEN_BRACKET,
+  POINT,
+  OPERATION,
+  FLOAT_NUMBER,
+  CLOSE_BRACKET,
 }
+
+export const SUCCESSFULL_STATES: States[] = [
+  States.CLOSE_BRACKET,
+  States.NUMBER,
+  States.FLOAT_NUMBER,
+];
+export const NEGATION_SIGN = '-';
 
 export enum Brackets {
   OPEN = '(',
@@ -15,19 +29,8 @@ export enum Operations {
   DIV = '/',
 }
 
-export const STRONG_OPERATIONS = [
-  Operations.ADD,
-  Operations.DIV,
-  Operations.MUL,
-];
-export const STRONG_SYMBOLS = [...STRONG_OPERATIONS, POINT];
+export const SPACE = ' ';
 
 export const WELCOME_TEXT =
   'Hello, Byndyusoft! This is Calculator.\nPlease enter mathematical expression.\nType exit to exit.';
 export const ERROR_MESSAGE = 'Invalid input. Use 0-9, * / + -, ()';
-
-export const REG_EXPS = {
-  EXPRESSION: /^[0-9+-/*().]*$/,
-  WRONG_POINT: /((([^0-9])+)\.)|\.(([^0-9])+)/,
-  WRONG_STRONG_OPERATIONS: /([^0-9)])[+/*]([^0-9)]*)/,
-};

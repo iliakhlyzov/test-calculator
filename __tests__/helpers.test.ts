@@ -6,32 +6,101 @@ import { Parser } from '../src/helpers/Parser';
 describe('Helpers Tests', () => {
   describe('Parser Tests', () => {
     const parser = new Parser();
-    it('* should be valid from empty string', () => {
+
+    it('* should be valid - one number', async () => {
+      const str = '141';
+      expect(await parser.isValid(str)).toBeTruthy();
+    });
+    it('* should be valid - operations', async () => {
+      const str = '1+2-3*4/5';
+      expect(await parser.isValid(str)).toBeTruthy();
+    });
+    it('* should be valid - brackets and spaces', async () => {
+      const str = '(1+3) * 18 /((294) * 255)';
+      expect(await parser.isValid(str)).toBeTruthy();
+    });
+    it('* should be valid - float numbers', async () => {
+      const str = '(1+3.13) * 18.12 /((294.141) * 255)';
+      expect(await parser.isValid(str)).toBeTruthy();
+    });
+    it('* should be valid - negative float numbers', async () => {
+      const str = '(1+-3.13) * -18.12 /((294.141) * -255)';
+      expect(await parser.isValid(str)).toBeTruthy();
+    });
+
+    it('should be invalid - empty string', async () => {
       const str = '';
-      expect(parser.isValid(str)).toBeTruthy();
+      expect(await parser.isValid(str)).toBeFalsy();
     });
-    it('should be invalid from string with symbols', () => {
-      const str = '1+a';
-      expect(parser.isValid(str)).toBeFalsy();
+    it('should be invalid - wrong symbols', async () => {
+      const str = '2+a';
+      expect(await parser.isValid(str)).toBeFalsy();
     });
-    it('should be valid from all available symbols', () => {
-      const str = '0+1.2-3+4*5/6+7+(8+9)';
-      expect(parser.isValid(str)).toBeTruthy();
+    it('should be invalid - wrong symbols 2', async () => {
+      const str = 'hello*moto';
+      expect(await parser.isValid(str)).toBeFalsy();
     });
-    it('* should be invalid with extra close bracket', () => {
+    it('should be invalid - double negation', async () => {
+      const str = '--1';
+      expect(await parser.isValid(str)).toBeFalsy();
+    });
+    it('should be invalid - extra close bracket', async () => {
       const str = '18+((123+1)*2))';
-      expect(parser.isValid(str)).toBeFalsy();
+      expect(await parser.isValid(str)).toBeFalsy();
     });
-    it('should be valid from correct count of brackets', () => {
-      const str = '18+((123+1)*2)';
-      expect(parser.isValid(str)).toBeTruthy();
-    });
-    it('should be invalid with extra open bracket', () => {
+    it('should be invalid - extra open bracket', async () => {
       const str = '(18+1)*(1';
-      expect(parser.isValid(str)).toBeFalsy();
+      expect(await parser.isValid(str)).toBeFalsy();
+    });
+    it('* should be invalid - dobule point', async () => {
+      const str = '1..0 + 2';
+      expect(await parser.isValid(str)).toBeFalsy();
+    });
+    it('should be invalid - wrong end', async () => {
+      const str = '1.0*';
+      expect(await parser.isValid(str)).toBeFalsy();
+    });
+    it('should be invalid - incorrect use of brackets', async () => {
+      const str = '16.8 + ()';
+      expect(await parser.isValid(str)).toBeFalsy();
+    });
+    it('should be invalid - incorrect use of brackets 2', async () => {
+      const str = ')16.8+7(';
+      expect(await parser.isValid(str)).toBeFalsy();
     });
   });
   describe('Core Tests', () => {
     const core = new Core();
+    it('should be 4 +', () => {
+      expect(core.calculate('2+2')).toBe(4);
+    });
+    it('should be 4 *', () => {
+      expect(core.calculate('2*2')).toBe(4);
+    });
+    it('should be 1 /', () => {
+      expect(core.calculate('2/2')).toBe(4);
+    });
+    it('should be 0 /', () => {
+      expect(core.calculate('2/2')).toBe(4);
+    });
+    it('should be error - division by 0', () => {
+      expect(core.calculate('2/(2-2)')).toBe(4);
+    });
+    it('should be 0.01 - correct work with float numbers', () => {
+      expect(core.calculate('0.1*0.1')).toBe(4);
+    });
+    it('should be 4 - correct order operations: division', () => {
+      expect(core.calculate('2 / 1 + 2')).toBe(4);
+    });
+    it('should be 4 - correct order operations: mul', () => {
+      expect(core.calculate('2 * 1 + 2')).toBe(4);
+    });
+    it('should be 0 - negative numbers', () => {
+      expect(core.calculate('18+-18')).toBe(4);
+    });
+
+    it('should be 0 - hard works with brackets and negative numbers', () => {
+      expect(core.calculate('(18/2)*(16+32/(2*-1))')).toBe(4);
+    });
   });
 });
